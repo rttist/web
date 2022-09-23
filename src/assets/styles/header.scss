@@ -112,6 +112,7 @@
 					position: relative;
 					font-size: 8rem;
 					margin-bottom: 10px;
+					color: $color-theme-tint-dark;
 
 					@media(max-width: $size-small) {
 						font-size: 5.8rem;
@@ -167,16 +168,16 @@
 					text-align: center;
 
 					&:first-child {
-						background: fade-out($color-blue-light, 0.8);
+						background: fade-out($color-theme-tint-light, 0.8);
 
 						&:hover {
-							background: fade-out($color-blue-light, 0.7);
+							background: fade-out($color-theme-tint-light, 0.7);
 						}
 					}
 
 					&:hover {
 						text-decoration: none;
-						background: fade-out($color-blue-light, 0.9);
+						background: fade-out($color-theme-tint-light, 0.9);
 					}
 				}
 			}
