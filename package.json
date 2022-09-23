@@ -3,8 +3,8 @@
     "name": "rttist-web",
     "description": "Website of the RTTIST runtime reflection project.",
     "scripts": {
-		"start": "npx http-server public",
-        "scss": "npx sass --no-source-map src/assets/styles/style.scss:public/assets/styles/style.css",
+		"start": "npx http-server docs",
+        "scss": "npx sass --no-source-map src/assets/styles/style.scss:docs/assets/styles/style.css",
         "watchscss": "npm run scss -- -w",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
