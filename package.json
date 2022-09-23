@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "rttist-web",
+    "description": "Website of the RTTIST runtime reflection project.",
+    "scripts": {
+		"start": "npx http-server public",
+        "scss": "npx sass --no-source-map src/assets/styles/style.scss:public/assets/styles/style.css",
+        "watchscss": "npm run scss -- -w",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rttist/web.git"
+    },
+    "author": "Roman Jámbor",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/rttist/web/issues"
+    },
+    "homepage": "https://github.com/rttist/web#readme",
+    "devDependencies": {
+        "http-server": "^14.1.1",
+        "sass": "^1.55.0"
+    }
+}

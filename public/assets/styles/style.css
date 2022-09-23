@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+html, body, ul, li, a, img, h1, h2, h3, iframe {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+}
+
+body {
+  position: relative;
+  min-width: 370px;
+  background: #f2f2f2;
+  font-size: 1rem;
+  font-family: "Raleway", Arial, sans-serif;
+  color: #b3bdd2;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
+}
+
+a {
+  color: #b3bdd2;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.header {
+  position: relative;
+  background: #181c36;
+  height: 775px;
+  overflow: hidden;
+  max-width: 100%;
+}
+.header .glow-over {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background: url("../images/glow-over.png") top left no-repeat;
+  width: 668px;
+  height: 775px;
+}
+.header .glow-under {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: url("../images/glow-under.png") bottom right no-repeat;
+  width: 864px;
+  height: 775px;
+}
+.header .editor {
+  position: absolute;
+  width: 1233px;
+  height: 678px;
+  top: 67px;
+  right: auto;
+  left: calc(50% - 150px);
+  background: url("../images/editor.png") 0 0 no-repeat;
+}
+@media (max-width: 2230px) {
+  .header .editor {
+    right: 30px;
+    left: auto;
+  }
+}
+.header .center {
+  position: relative;
+  width: 1300px;
+  height: 775px;
+  margin: 0 auto;
+  padding: 0 30px;
+  overflow: hidden;
+}
+@media (max-width: 1300px) {
+  .header .center {
+    width: 100%;
+  }
+}
+.header .center .editor-fade-cover {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  height: 775px;
+  width: 50em;
+  background-image: linear-gradient(to right, #181c36 0%, #181c36 60%, rgba(0, 0, 0, 0) 100%);
+}
+.header .center nav {
+  position: relative;
+  z-index: 2;
+  float: right;
+  margin-top: 20px;
+}
+.header .center nav ul {
+  list-style-type: none;
+}
+.header .center nav ul li {
+  float: left;
+  margin: 0 1em;
+}
+.header .center nav ul li:first-child {
+  margin-left: 0;
+}
+.header .center nav ul li:last-child {
+  margin-right: 0;
+}
+.header .center nav ul li a {
+  font-size: 1.1rem;
+  display: block;
+  padding: 0 0.5em;
+  line-height: 35px;
+}
+.header .center nav ul li a img {
+  vertical-align: -6px;
+}
+.header .center .title {
+  position: relative;
+  z-index: 2;
+  margin-top: 190px;
+  transition: 0.3s;
+}
+@media (max-width: 700px) {
+  .header .center .title {
+    margin-top: 90px;
+  }
+}
+.header .center .title header h1 {
+  position: relative;
+  font-size: 8rem;
+  margin-bottom: 10px;
+}
+@media (max-width: 700px) {
+  .header .center .title header h1 {
+    font-size: 5.8rem;
+  }
+}
+.header .center .title header h1 span {
+  position: absolute;
+  background: linear-gradient(90deg, #6b639f, #769bc0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.header .center .title header h1:after {
+  content: "RTTIST";
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: transparent;
+}
+.header .center .title header h2 {
+  position: relative;
+  font-size: 3.25rem;
+}
+@media (max-width: 700px) {
+  .header .center .title header h2 {
+    font-size: 2rem;
+  }
+  .header .center .title header h2 span:after {
+    content: " ";
+  }
+  .header .center .title header h2 span br {
+    display: none;
+  }
+}
+.header .center .title .buttons {
+  position: relative;
+  margin-top: 70px;
+}
+.header .center .title .buttons a {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+  width: 180px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  border: 1px solid #474d65;
+  text-align: center;
+}
+.header .center .title .buttons a:first-child {
+  background: rgba(118, 155, 192, 0.2);
+}
+.header .center .title .buttons a:first-child:hover {
+  background: rgba(118, 155, 192, 0.3);
+}
+.header .center .title .buttons a:hover {
+  text-decoration: none;
+  background: rgba(118, 155, 192, 0.1);
+}
+
+main {
+  width: 1300px;
+  margin: 0 auto;
+  padding: 30px;
+  color: #6b64a0;
+}
+@media (max-width: 1300px) {
+  main {
+    width: 100%;
+  }
+}
+main h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.35em;
+}
+main iframe {
+  width: 100%;
+  height: 80vh;
+}
+
+body::after {
+  content: "";
+  display: block;
+  height: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background: #181c36;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,39 @@
+@import './variables';
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	width: 100%;
+	min-height: 100vh;
+}
+
+html, body, ul, li, a, img, h1, h2, h3, iframe {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+}
+
+body {
+	position: relative;
+	min-width: 370px;
+	background: $page-bg-color;
+	font-size: 1rem;
+	font-family: 'Raleway', Arial, sans-serif;
+	color: $text-color;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+a {
+	color: $text-color;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

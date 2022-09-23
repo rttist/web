@@ -1,0 +1,185 @@
+@import './variables';
+
+.header {
+	position: relative;
+	background: $header-bg-color;
+	height: $header-height;
+	overflow: hidden;
+	max-width: 100%;
+
+	.glow-over {
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		background: url('../images/glow-over.png') top left no-repeat;
+		width: 668px;
+		height: $header-height;
+	}
+
+	.glow-under {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: url('../images/glow-under.png') bottom right no-repeat;
+		width: 864px;
+		height: $header-height;
+	}
+
+	.editor {
+		position: absolute;
+		width: 1233px;
+		height: 678px;
+		top: 67px;
+		right: auto;
+		left: calc(50% - 150px);
+		background: url('../images/editor.png') 0 0 no-repeat;
+
+		@media(max-width: $size-large) {
+			right: 30px;
+			left: auto;
+		}
+	}
+
+	.center {
+		position: relative;
+		width: $content-width;
+		height: $header-height;
+		margin: 0 auto;
+		padding: 0 30px;
+		overflow: hidden;
+
+		@media(max-width: $content-width) {
+			width: 100%;
+		}
+
+		.editor-fade-cover {
+			position: absolute;
+			top: 0;
+			left: -30px;
+			height: $header-height;
+			width: 50em;
+			background-image: linear-gradient(to right, $header-bg-color 0%, $header-bg-color 60%, rgba(0, 0, 0, 0) 100%);
+		}
+
+		nav {
+			position: relative;
+			z-index: 2;
+			float: right;
+			margin-top: 20px;
+
+			ul {
+				list-style-type: none;
+
+				li {
+					float: left;
+					margin: 0 1em;
+
+					&:first-child {
+						margin-left: 0;
+					}
+
+					&:last-child {
+						margin-right: 0;
+					}
+
+					a {
+						font-size: 1.1rem;
+						display: block;
+						padding: 0 0.5em;
+						line-height: 35px;
+
+						img {
+							vertical-align: -6px;
+						}
+					}
+				}
+			}
+		}
+
+		.title {
+			position: relative;
+			z-index: 2;
+			margin-top: 190px;
+			transition: 0.3s;
+
+			@media(max-width: $size-small) {
+				margin-top: 90px;
+			}
+
+			header {
+				h1 {
+					position: relative;
+					font-size: 8rem;
+					margin-bottom: 10px;
+
+					@media(max-width: $size-small) {
+						font-size: 5.8rem;
+					}
+
+					span {
+						position: absolute;
+						background: linear-gradient(90deg, #6b639f, #769bc0);
+						-webkit-background-clip: text;
+						background-clip: text;
+						-webkit-text-fill-color: transparent;
+					}
+
+					&:after {
+						content: 'RTTIST';
+						text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+						color: transparent;
+					}
+				}
+
+				h2 {
+					position: relative;
+					font-size: 3.25rem;
+
+					@media(max-width: $size-small) {
+						font-size: 2rem;
+
+						span {
+							&:after {
+								content: ' ';
+							}
+
+							br {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+
+			.buttons {
+				position: relative;
+				margin-top: 70px;
+
+				a {
+					display: inline-block;
+					margin: 0 20px 20px 0;
+					width: 180px;
+					height: 50px;
+					line-height: 50px;
+					border-radius: 5px;
+					border: 1px solid #474d65;
+					text-align: center;
+
+					&:first-child {
+						background: fade-out($color-blue-light, 0.8);
+
+						&:hover {
+							background: fade-out($color-blue-light, 0.7);
+						}
+					}
+
+					&:hover {
+						text-decoration: none;
+						background: fade-out($color-blue-light, 0.9);
+					}
+				}
+			}
+		}
+	}
+}
