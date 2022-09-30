@@ -3,14 +3,17 @@ $color-theme-tint-light: #769bc0;
 $color-theme-tint-dark: #6b65a0;
 
 $text-color: #b3bdd2;
+$text-color-light: #d6ddea;
 $page-bg-color: #f2f2f2;
 
-$content-width: 1300px;
+$content-width: 1600px;
 
 $header-bg-color: $color-primary-dark-blue;
 $header-height: 775px;
 
 $footer-height: 60px;
 
-$size-small: 700px;
+$size-xsmall: 400px;
+$size-small: 1024px;
+$size-base: $content-width;
 $size-large: 2230px;

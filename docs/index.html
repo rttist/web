@@ -7,14 +7,34 @@
 		<meta name="description" content="Runtime Type Information System for TypeScript">
 		<meta name="keywords" content="rttist,runtime,reflection,type,information,system,TypeScript,reflect,JavaScript">
 		<meta name="robots" content="index,follow">
+<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">-->
 		<link rel="stylesheet" href="assets/styles/style.css">
 		<link rel="icon" type="image/png" href="assets/favicon.png">
+		<script>
+			function scrollToHref(anchor) {
+				const selector = anchor.getAttribute("href");
+				const element = document.querySelector(selector);
+
+				if (element) {
+					element.scrollIntoView({behavior: "smooth"});
+					return false;
+				}
+			}
+
+			document.addEventListener("scroll", () => {
+				if (document.body.scrollTop > 100) {
+					alert("k");
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<div class="header">
 			<div class="glow-over"></div>
 			<div class="glow-under"></div>
-			<div class="editor"></div>
+			<div class="editor">
+				<!--				<a class="btn" href="#playground" onclick="return scrollToHref(this)">RUN PROJECT</a>-->
+			</div>
 
 			<div class="center">
 				<div class="editor-fade-cover"></div>
@@ -30,28 +50,167 @@
 						</li>
 					</ul>
 				</nav>
-				
+
 				<div class="title">
 					<header>
-						<h1><span>RTTIST</span></h1>
+						<h1>
+							<span class="logomark"></span>
+							<span class="name"><span>RTTIST</span></span>
+						</h1>
 						<h2>Runtime Type Information<span><br></span>System for&nbsp;TypeScript</h2>
 					</header>
-					
+
 					<div class="buttons">
-						<a href="//docs.rttist.org/#/en/getting-started">Get Started</a>
-						<a href="//docs.rttist.org/">Documentation</a>
+						<a class="btn" href="//docs.rttist.org/#/en/getting-started">Get Started</a>
+						<a class="btn" href="//docs.rttist.org/">Documentation</a>
+						<!--						<a class="btn" href="#playground" onclick="return scrollToHref(this)">Playground</a>-->
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<main>
-			<h1>Playground</h1>
-			<iframe src="https://stackblitz.com/edit/tst-reflect-overloads?ctl=1&embed=1&file=index.ts&theme=light&view=editor"></iframe>
+			<div class="section-wrap">
+				<section class="highlights">
+					<section>
+						<div>
+							<h1>Metadata Library of Project Types and Modules</h1>
+							<p>
+								Static metadata library of all the types and modules from project accessible at runtime.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+
+const allEntities: Type[] = Metadata.getModules()
+	.filter(module => module.path.includes(__dirname))
+	.flatMap(module => module.getTypes())
+	.filter(type => type.exported &amp;&amp; type.isClass() 
+		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Vast Majority of Types Supported</h1>
+							<p>
+								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types and primitives.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+
+const allEntities: Type[] = Metadata.getModules()
+	.filter(module => module.path.includes(__dirname))
+	.flatMap(module => module.getTypes())
+	.filter(type => type.exported &amp;&amp; type.isClass() 
+		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Generic Type Parameters</h1>
+							<p>
+								Reflection over all the types such as classes, interfaces, type aliases and functions.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+
+const allEntities: Type[] = Metadata.getModules()
+	.filter(module => module.path.includes(__dirname))
+	.flatMap(module => module.getTypes())
+	.filter(type => type.exported &amp;&amp; type.isClass() 
+		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Runtime Generic Classes</h1>
+							<p>
+								Optionally, real generic classes generated from base classes at runtime.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+
+const allEntities: Type[] = Metadata.getModules()
+	.filter(module => module.path.includes(__dirname))
+	.flatMap(module => module.getTypes())
+	.filter(type => type.exported &amp;&amp; type.isClass() 
+		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						</figure>
+					</section>
+					<!--				<div class="tile">-->
+					<!--					<h1>Metadata library of types and modules</h1>-->
+					<!--					<p>Static metadata library of all the types and modules from project accessible at runtime.</p>-->
+					<!--				</div>-->
+
+					<!--				<div class="tile">-->
+					<!--					<h1>All types supported</h1>-->
+					<!--					<p>-->
+					<!--						Reflection over all the types such as classes, interfaces, type aliases and functions.-->
+					<!--					</p>-->
+					<!--				</div>-->
+
+					<!--				<div class="tile">-->
+					<!--					<h1>Generic type parameters</h1>-->
+					<!--					<p>-->
+					<!--						Reflection over generic type parameters of methods, functions and classes.-->
+					<!--					</p>-->
+					<!--				</div>-->
+
+					<!--				<div class="tile">-->
+					<!--					<h1>Runtime generic classes</h1>-->
+					<!--					<p>-->
+					<!--						Optionally, real generic classes generated from base classes at runtime.-->
+					<!--					</p>-->
+					<!--				</div>-->
+				</section>
+			</div>
+
+			<div class="section-wrap">
+				<section>
+					<h1 id="playground">Playground</h1>
+					<iframe src="https://stackblitz.com/edit/tst-reflect-overloads?ctl=1&embed=1&file=index.ts&theme=light&view=editor"></iframe>
+				</section>
+			</div>
 		</main>
-		
+
 		<footer>
 			<span class="copy">&copy 2022 RTTIST.org</span>
 		</footer>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				// Fix wrong keywords
+				document.querySelectorAll("pre code .punctuation + .keyword").forEach(keywordElement => {
+					if (keywordElement.previousElementSibling.innerText === ".") {
+						keywordElement.classList.add("not-keyword");
+					}
+				});
+
+				const TYPE_MATCH = /\s[a-zA-Z0-9_@]/;
+
+				// Fix types
+				document.querySelectorAll("pre code .operator").forEach(operator => {
+					if (
+						operator.innerText === ":"
+						&& operator.previousSibling.nodeType === Node.TEXT_NODE
+						&& operator.nextSibling.nodeType === Node.TEXT_NODE
+						&& TYPE_MATCH.test(operator.nextSibling.textContent)
+					)
+					{
+						const wrap = document.createElement("div");
+						wrap.innerHTML = '<span class="token maybe-class-name">' + operator.nextSibling.textContent + '</span>';
+						operator.nextSibling.replaceWith(wrap.children[0]);
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

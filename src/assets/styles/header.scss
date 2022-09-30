@@ -7,9 +7,18 @@
 	overflow: hidden;
 	max-width: 100%;
 
+	@media(max-width: $size-small) {
+		height: auto;
+		
+		.center {
+			height: auto !important;
+			padding-bottom: 50px !important;
+		}
+	}
+
 	.glow-over {
 		position: absolute;
-		z-index: 1;
+		z-index: 3;
 		left: 0;
 		top: 0;
 		background: url('../images/glow-over.png') top left no-repeat;
@@ -33,11 +42,40 @@
 		top: 67px;
 		right: auto;
 		left: calc(50% - 150px);
-		background: url('../images/editor.png') 0 0 no-repeat;
+		//opacity: 0.5;
+		transition: 0.5s;
+		z-index: 1;
+
+		&:hover {
+			opacity: 1;
+
+			&::before {
+				opacity: 0.4;
+			}
+		}
+
+		&::before {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: url('../images/editor.png') 0 0 no-repeat;
+			content: "";
+			opacity: 0.25;
+			transition: 0.5s;
+		}
 
 		@media(max-width: $size-large) {
 			right: 30px;
 			left: auto;
+		}
+
+		.btn {
+			position: absolute;
+			display: block;
+			bottom: 30px;
+			right: 30px;
 		}
 	}
 
@@ -55,6 +93,7 @@
 
 		.editor-fade-cover {
 			position: absolute;
+			z-index: 2;
 			top: 0;
 			left: -30px;
 			height: $header-height;
@@ -64,7 +103,7 @@
 
 		nav {
 			position: relative;
-			z-index: 2;
+			z-index: 4;
 			float: right;
 			margin-top: 20px;
 
@@ -99,9 +138,15 @@
 
 		.title {
 			position: relative;
-			z-index: 2;
+			z-index: 4;
 			margin-top: 190px;
 			transition: 0.3s;
+			width: max-content;
+			overflow: visible;
+
+			@media(max-width: $size-base) {
+				max-width: 100%;
+			}
 
 			@media(max-width: $size-small) {
 				margin-top: 90px;
@@ -113,23 +158,65 @@
 					font-size: 8rem;
 					margin-bottom: 10px;
 					color: $color-theme-tint-dark;
+					overflow: hidden;
 
 					@media(max-width: $size-small) {
 						font-size: 5.8rem;
 					}
 
-					span {
-						position: absolute;
-						background: linear-gradient(90deg, #6b639f, #769bc0);
-						-webkit-background-clip: text;
-						background-clip: text;
-						-webkit-text-fill-color: transparent;
+					@media(max-width: 520px) {
+						text-align: center;
 					}
 
-					&:after {
-						content: 'RTTIST';
-						text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-						color: transparent;
+					span.name {
+						display: inline-block;
+						float: left;
+						//overflow: hidden;
+
+						@media(max-width: 520px) {
+							//width: 100%;
+							//display: block;
+							//margin: 0 auto;
+							float: none;
+						}
+
+						&:after {
+							content: 'RTTIST';
+							text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+							color: transparent;
+						}
+
+						span {
+							position: absolute;
+							background: linear-gradient(90deg, #6b639f, #769bc0);
+							-webkit-background-clip: text;
+							background-clip: text;
+							-webkit-text-fill-color: transparent;
+						}
+					}
+
+					span.logomark {
+						position: relative;
+						background: url('../images/logo-mark.png') right center no-repeat;
+						background-size: contain;
+						width: 10rem;
+						height: 10rem;
+						display: inline-block;
+						float: right;
+
+						@media(max-width: $size-small) {
+							width: 1em;
+							height: 1em;
+							float: none;
+							margin-left: 0.175em;
+							margin-top: 0.125em;
+						}
+
+						@media(max-width: 520px) {
+							width: 100%;
+							margin: 0.125em 0 0.05em 0;
+							background-position: center center;
+						}
 					}
 				}
 
@@ -150,6 +237,11 @@
 							}
 						}
 					}
+
+
+					@media(max-width: 520px) {
+						text-align: center;
+					}
 				}
 			}
 
@@ -157,27 +249,24 @@
 				position: relative;
 				margin-top: 70px;
 
-				a {
-					display: inline-block;
-					margin: 0 20px 20px 0;
-					width: 180px;
-					height: 50px;
-					line-height: 50px;
-					border-radius: 5px;
-					border: 1px solid #474d65;
-					text-align: center;
+				@media(max-width: 520px) {
+					margin-top: 50px;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					
+					a.btn {
+						margin-right: 0;
+					}
+				}
 
+				a.btn {
 					&:first-child {
 						background: fade-out($color-theme-tint-light, 0.8);
 
 						&:hover {
 							background: fade-out($color-theme-tint-light, 0.7);
 						}
-					}
-
-					&:hover {
-						text-decoration: none;
-						background: fade-out($color-theme-tint-light, 0.9);
 					}
 				}
 			}

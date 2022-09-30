@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -8,7 +9,7 @@ html, body {
   min-height: 100vh;
 }
 
-html, body, ul, li, a, img, h1, h2, h3, iframe {
+html, body, ul, li, a, img, h1, h2, h3, iframe, figure, main, section, article {
   margin: 0;
   padding: 0;
   outline: 0;
@@ -36,6 +37,262 @@ a:hover {
   text-decoration: underline;
 }
 
+a.btn {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+  width: 180px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  border: 1px solid #474d65;
+  text-align: center;
+  transition: 0.4s;
+}
+a.btn:hover {
+  text-decoration: none;
+  background: rgba(118, 155, 192, 0.1);
+  transition: 0.2s;
+}
+
+pre code[class*=language-] {
+  font-size: 0.9rem;
+  line-height: 1.4em;
+  font-family: "Source Code Pro", Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+  font-weight: 400;
+  color: #b2b2b2;
+  text-shadow: none;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  hyphens: none;
+  tab-size: 4;
+}
+pre code[class*=language-]::selection, pre code[class*=language-] *::selection {
+  text-shadow: none;
+  background: #264F78;
+}
+
+pre[class*=language-] {
+  margin: 0.5em 0;
+  padding: 1em;
+  overflow: auto;
+  background: #181c36;
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token.doctype .token.doctype-tag {
+  color: #569CD6;
+}
+
+.token.doctype .token.name {
+  color: #9cdcfe;
+}
+
+.token.comment,
+.token.prolog {
+  color: #6a9955;
+}
+
+.token.punctuation,
+.language-html .language-css .token.punctuation,
+.language-html .language-javascript .token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.inserted,
+.token.unit {
+  color: #b5cea8;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.deleted {
+  color: #ce9178;
+}
+
+.language-css .token.string.url {
+  text-decoration: underline;
+}
+
+.token.operator,
+.token.entity {
+  color: #d4d4d4;
+}
+
+.token.operator.arrow {
+  color: #569CD6;
+}
+
+.token.atrule {
+  color: #ce9178;
+}
+
+.token.atrule .token.rule {
+  color: #c586c0;
+}
+
+.token.atrule .token.url {
+  color: #9cdcfe;
+}
+
+.token.atrule .token.url .token.function {
+  color: #dcdcaa;
+}
+
+.token.atrule .token.url .token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.keyword {
+  color: #569CD6;
+}
+
+.token.keyword.module,
+.token.keyword.control-flow {
+  color: #c586c0;
+}
+
+.token.function,
+.token.function .token.maybe-class-name {
+  color: #dcdcaa;
+}
+
+.token.regex {
+  color: #d16969;
+}
+
+.token.important {
+  color: #569cd6;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.constant {
+  color: #9cdcfe;
+}
+
+.token.class-name,
+.token.maybe-class-name {
+  color: #4ec9b0;
+}
+
+.token.console {
+  color: #9cdcfe;
+}
+
+.token.parameter {
+  color: #9cdcfe;
+}
+
+.token.interpolation {
+  color: #9cdcfe;
+}
+
+.token.punctuation.interpolation-punctuation {
+  color: #569cd6;
+}
+
+.token.boolean {
+  color: #569cd6;
+}
+
+.token.property,
+.token.variable,
+.token.imports .token.maybe-class-name,
+.token.exports .token.maybe-class-name {
+  color: #9cdcfe;
+}
+
+.token.selector {
+  color: #d7ba7d;
+}
+
+.token.escape {
+  color: #d7ba7d;
+}
+
+.token.tag {
+  color: #569cd6;
+}
+
+.token.tag .token.punctuation {
+  color: #808080;
+}
+
+.token.cdata {
+  color: #808080;
+}
+
+.token.attr-name {
+  color: #9cdcfe;
+}
+
+.token.attr-value,
+.token.attr-value .token.punctuation {
+  color: #ce9178;
+}
+
+.token.attr-value .token.punctuation.attr-equals {
+  color: #d4d4d4;
+}
+
+.token.entity {
+  color: #569cd6;
+}
+
+.token.namespace {
+  color: #4ec9b0;
+}
+
+.language-regex .token.anchor {
+  color: #dcdcaa;
+}
+
+.language-html .token.punctuation {
+  color: #808080;
+}
+
+/* OVERRIDES */
+.token.keyword {
+  color: #6d9ac7;
+}
+
+.token.string, .style .token.string, .token.entity, .token.operator, .token.url {
+  background: none;
+}
+
+.token.entity, .token.operator {
+  color: #959290;
+}
+
+.token.function, .token.function .token.maybe-class-name {
+  color: #4db0a8;
+}
+
+.token.class-name, .token.maybe-class-name {
+  color: #9993c5;
+}
+
+.token.keyword.not-keyword {
+  color: #b2b2b2;
+}
+
 .header {
   position: relative;
   background: #181c36;
@@ -43,9 +300,18 @@ a:hover {
   overflow: hidden;
   max-width: 100%;
 }
+@media (max-width: 1024px) {
+  .header {
+    height: auto;
+  }
+  .header .center {
+    height: auto !important;
+    padding-bottom: 50px !important;
+  }
+}
 .header .glow-over {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   background: url("../images/glow-over.png") top left no-repeat;
@@ -67,7 +333,25 @@ a:hover {
   top: 67px;
   right: auto;
   left: calc(50% - 150px);
+  transition: 0.5s;
+  z-index: 1;
+}
+.header .editor:hover {
+  opacity: 1;
+}
+.header .editor:hover::before {
+  opacity: 0.4;
+}
+.header .editor::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: url("../images/editor.png") 0 0 no-repeat;
+  content: "";
+  opacity: 0.25;
+  transition: 0.5s;
 }
 @media (max-width: 2230px) {
   .header .editor {
@@ -75,21 +359,28 @@ a:hover {
     left: auto;
   }
 }
+.header .editor .btn {
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  right: 30px;
+}
 .header .center {
   position: relative;
-  width: 1300px;
+  width: 1600px;
   height: 775px;
   margin: 0 auto;
   padding: 0 30px;
   overflow: hidden;
 }
-@media (max-width: 1300px) {
+@media (max-width: 1600px) {
   .header .center {
     width: 100%;
   }
 }
 .header .center .editor-fade-cover {
   position: absolute;
+  z-index: 2;
   top: 0;
   left: -30px;
   height: 775px;
@@ -98,7 +389,7 @@ a:hover {
 }
 .header .center nav {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   float: right;
   margin-top: 20px;
 }
@@ -126,11 +417,18 @@ a:hover {
 }
 .header .center .title {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   margin-top: 190px;
   transition: 0.3s;
+  width: max-content;
+  overflow: visible;
 }
-@media (max-width: 700px) {
+@media (max-width: 1600px) {
+  .header .center .title {
+    max-width: 100%;
+  }
+}
+@media (max-width: 1024px) {
   .header .center .title {
     margin-top: 90px;
   }
@@ -140,29 +438,69 @@ a:hover {
   font-size: 8rem;
   margin-bottom: 10px;
   color: #6b65a0;
+  overflow: hidden;
 }
-@media (max-width: 700px) {
+@media (max-width: 1024px) {
   .header .center .title header h1 {
     font-size: 5.8rem;
   }
 }
-.header .center .title header h1 span {
+@media (max-width: 520px) {
+  .header .center .title header h1 {
+    text-align: center;
+  }
+}
+.header .center .title header h1 span.name {
+  display: inline-block;
+  float: left;
+}
+@media (max-width: 520px) {
+  .header .center .title header h1 span.name {
+    float: none;
+  }
+}
+.header .center .title header h1 span.name:after {
+  content: "RTTIST";
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: transparent;
+}
+.header .center .title header h1 span.name span {
   position: absolute;
   background: linear-gradient(90deg, #6b639f, #769bc0);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.header .center .title header h1:after {
-  content: "RTTIST";
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  color: transparent;
+.header .center .title header h1 span.logomark {
+  position: relative;
+  background: url("../images/logo-mark.png") right center no-repeat;
+  background-size: contain;
+  width: 10rem;
+  height: 10rem;
+  display: inline-block;
+  float: right;
+}
+@media (max-width: 1024px) {
+  .header .center .title header h1 span.logomark {
+    width: 1em;
+    height: 1em;
+    float: none;
+    margin-left: 0.175em;
+    margin-top: 0.125em;
+  }
+}
+@media (max-width: 520px) {
+  .header .center .title header h1 span.logomark {
+    width: 100%;
+    margin: 0.125em 0 0.05em 0;
+    background-position: center center;
+  }
 }
 .header .center .title header h2 {
   position: relative;
   font-size: 3.25rem;
 }
-@media (max-width: 700px) {
+@media (max-width: 1024px) {
   .header .center .title header h2 {
     font-size: 2rem;
   }
@@ -173,41 +511,35 @@ a:hover {
     display: none;
   }
 }
+@media (max-width: 520px) {
+  .header .center .title header h2 {
+    text-align: center;
+  }
+}
 .header .center .title .buttons {
   position: relative;
   margin-top: 70px;
 }
-.header .center .title .buttons a {
-  display: inline-block;
-  margin: 0 20px 20px 0;
-  width: 180px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 5px;
-  border: 1px solid #474d65;
-  text-align: center;
+@media (max-width: 520px) {
+  .header .center .title .buttons {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .header .center .title .buttons a.btn {
+    margin-right: 0;
+  }
 }
-.header .center .title .buttons a:first-child {
+.header .center .title .buttons a.btn:first-child {
   background: rgba(118, 155, 192, 0.2);
 }
-.header .center .title .buttons a:first-child:hover {
+.header .center .title .buttons a.btn:first-child:hover {
   background: rgba(118, 155, 192, 0.3);
-}
-.header .center .title .buttons a:hover {
-  text-decoration: none;
-  background: rgba(118, 155, 192, 0.1);
 }
 
 main {
-  width: 1300px;
-  margin: 0 auto;
-  padding: 30px;
-  color: #6b64a0;
-}
-@media (max-width: 1300px) {
-  main {
-    width: 100%;
-  }
+  width: 100%;
 }
 main h1 {
   font-size: 2.5rem;
@@ -216,6 +548,88 @@ main h1 {
 main iframe {
   width: 100%;
   height: 80vh;
+  border: 1px solid #413a78;
+  border-radius: 5px;
+}
+main > div.section-wrap {
+  width: 100%;
+}
+main > div.section-wrap:nth-child(2n) {
+  background: #6b65a0;
+}
+main > div.section-wrap:nth-child(2n) > section {
+  color: #ededf4;
+  color: #d6ddea;
+}
+main > div.section-wrap > section {
+  width: 1600px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  color: #6b65a0;
+}
+@media (max-width: 1600px) {
+  main > div.section-wrap > section {
+    width: 100%;
+  }
+}
+main > div.section-wrap > section.highlights > section {
+  position: relative;
+  margin-top: 150px;
+  overflow: hidden;
+}
+main > div.section-wrap > section.highlights > section:nth-child(2n) > div {
+  float: right;
+  padding-left: 50px;
+  padding-right: 0;
+}
+main > div.section-wrap > section.highlights > section:nth-child(2n) > figure {
+  float: left;
+  padding-left: 0;
+  padding-right: 50px;
+}
+main > div.section-wrap > section.highlights > section:first-child {
+  margin-top: 0;
+}
+@media (max-width: 1300px) {
+  main > div.section-wrap > section.highlights > section {
+    margin-top: 80px;
+  }
+  main > div.section-wrap > section.highlights > section > div, main > div.section-wrap > section.highlights > section > figure {
+    width: 100% !important;
+    padding: 0 !important;
+    float: none !important;
+  }
+  main > div.section-wrap > section.highlights > section div {
+    margin-top: 0 !important;
+  }
+  main > div.section-wrap > section.highlights > section > figure {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  main > div.section-wrap > section.highlights > section > figure pre {
+    width: max-content !important;
+    min-width: 70%;
+    scrollbar-width: none;
+  }
+  main > div.section-wrap > section.highlights > section > figure pre::-webkit-scrollbar {
+    display: none;
+  }
+}
+main > div.section-wrap > section.highlights > section > div {
+  float: left;
+  margin-top: 50px;
+  width: 50%;
+  padding-right: 50px;
+}
+main > div.section-wrap > section.highlights > section > figure {
+  float: right;
+  width: 50%;
+  overflow: hidden;
+}
+main > div.section-wrap > section.highlights > section > figure pre {
+  border-radius: 5px;
+  width: 100%;
 }
 
 body::after {

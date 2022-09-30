@@ -1,24 +1,122 @@
 @import './variables';
 
-main {
-	width: $content-width;
-	margin: 0 auto;
-	padding: 30px;
-	//color: #333a63;
-	//color: #4e599a;
-	color: #6b64a0;
+$content-width-small: 1300px;
 
-	@media(max-width: $content-width) {
-		width: 100%;
-	}
-	
+main {
+	width: 100%;
+
 	h1 {
 		font-size: 2.5rem;
 		margin-bottom: 0.35em;
 	}
-	
+
 	iframe {
 		width: 100%;
 		height: 80vh;
+		border: 1px solid #413a78;
+		border-radius: 5px;
+	}
+
+	> div.section-wrap {
+		width: 100%;
+
+		&:nth-child(2n) {
+			background: $color-theme-tint-dark;
+			
+			> section {
+				color: lighten($color-theme-tint-dark, 43%);
+				color: $text-color-light;
+			}
+		}
+		
+		> section {
+			width: $content-width;
+			margin: 0 auto;
+			padding: 4rem 2rem;
+			color: $color-theme-tint-dark;
+
+			@media(max-width: $content-width) {
+				width: 100%;
+			}
+
+			&.highlights {
+				> section {
+					position: relative;
+					margin-top: 150px;
+					overflow: hidden;
+
+					&:nth-child(2n) {
+						> div {
+							float: right;
+							padding-left: 50px;
+							padding-right: 0;
+						}
+
+						> figure {
+							float: left;
+							padding-left: 0;
+							padding-right: 50px;
+						}
+					}
+
+					&:first-child {
+						margin-top: 0;
+					}
+
+					@media(max-width: $content-width-small) {
+						margin-top: 80px;
+
+						> div, > figure {
+							width: 100% !important;
+							padding: 0 !important;;
+							float: none !important;;
+						}
+
+						div {
+							margin-top: 0 !important;
+						}
+
+						> figure {
+							display: flex;
+							justify-content: center;
+							margin-top: 50px;
+
+							pre {
+								width: max-content !important;
+								min-width: 70%;
+
+								scrollbar-width: none;
+
+								&::-webkit-scrollbar {
+									display: none;
+								}
+							}
+						}
+					}
+
+					> div {
+						float: left;
+						margin-top: 50px;
+						width: 50%;
+						padding-right: 50px;
+
+						p {
+
+						}
+					}
+
+					> figure {
+						float: right;
+						width: 50%;
+						overflow: hidden;
+
+						pre {
+							border-radius: 5px;
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
 	}
 }
