@@ -7,7 +7,7 @@
 		<meta name="description" content="Runtime Type Information System for TypeScript">
 		<meta name="keywords" content="rttist,runtime,reflection,type,information,system,TypeScript,reflect,JavaScript">
 		<meta name="robots" content="index,follow">
-<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">-->
+		<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">-->
 		<link rel="stylesheet" href="assets/styles/style.css">
 		<link rel="icon" type="image/png" href="assets/favicon.png">
 		<script>
@@ -21,19 +21,44 @@
 				}
 			}
 
-			document.addEventListener("scroll", () => {
-				if (document.body.scrollTop > 100) {
-					alert("k");
-				}
-			});
+			const playground = (function () {
+				let modal;
+
+				return {
+					open: function openPlayground() {
+						if (!modal) {
+							modal = document.getElementById("modal");
+							modal.getElementsByClassName("content")[0].innerHTML
+								= '<iframe src="https://stackblitz.com/edit/tst-reflect-overloads?ctl=1&embed=1&file=index.ts&theme=light&view=editor"></iframe>';
+						}
+
+						modal.classList.add("open");
+						return false;
+					},
+
+					hide: function hidePlayground() {
+						if (modal) {
+							modal.classList.remove("open");
+						}
+						return false;
+					}
+				};
+			})();
 		</script>
 	</head>
 	<body>
+		<div id="modal">
+			<div class="background" onclick="playground.hide()"></div>
+			<div class="close" onclick="playground.hide()"></div>
+			<div class="content"></div>
+		</div>
+
 		<div class="header">
 			<div class="glow-over"></div>
 			<div class="glow-under"></div>
 			<div class="editor">
-				<!--				<a class="btn" href="#playground" onclick="return scrollToHref(this)">RUN PROJECT</a>-->
+				<div class="run-playground" onclick="playground.open()"><span>Run StackBlitz project.</span></div>
+				<!--<a class="btn" href="#playground" onclick="return scrollToHref(this)">RUN PROJECT</a>-->
 			</div>
 
 			<div class="center">
@@ -63,7 +88,7 @@
 					<div class="buttons">
 						<a class="btn" href="//docs.rttist.org/#/en/getting-started">Get Started</a>
 						<a class="btn" href="//docs.rttist.org/">Documentation</a>
-						<!--						<a class="btn" href="#playground" onclick="return scrollToHref(this)">Playground</a>-->
+						<a class="btn run-playground" href="#" onclick="return playground.open()">Playground</a>
 					</div>
 				</div>
 			</div>
@@ -94,7 +119,8 @@ const allEntities: Type[] = Metadata.getModules()
 						<div>
 							<h1>Vast Majority of Types Supported</h1>
 							<p>
-								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types and primitives.
+								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types and
+								primitives.
 							</p>
 						</div>
 						<figure>
@@ -174,7 +200,7 @@ const allEntities: Type[] = Metadata.getModules()
 			<div class="section-wrap">
 				<section>
 					<h1 id="playground">Playground</h1>
-					<iframe src="https://stackblitz.com/edit/tst-reflect-overloads?ctl=1&embed=1&file=index.ts&theme=light&view=editor"></iframe>
+
 				</section>
 			</div>
 		</main>

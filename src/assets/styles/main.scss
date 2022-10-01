@@ -10,13 +10,6 @@ main {
 		margin-bottom: 0.35em;
 	}
 
-	iframe {
-		width: 100%;
-		height: 80vh;
-		border: 1px solid #413a78;
-		border-radius: 5px;
-	}
-
 	> div.section-wrap {
 		width: 100%;
 
@@ -24,7 +17,6 @@ main {
 			background: $color-theme-tint-dark;
 			
 			> section {
-				color: lighten($color-theme-tint-dark, 43%);
 				color: $text-color-light;
 			}
 		}

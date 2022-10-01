@@ -56,3 +56,69 @@ a.btn {
 		transition: 0.2s;
 	}
 }
+
+#modal {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+	transition: 0.5s;
+	
+	&.open {
+		display: block;
+	}
+
+	.content {
+		position: relative;
+		width: 90vw;
+		height: calc(100vh - 110px);
+		margin: 55px 0 0 5vw;
+
+		iframe {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	> div.background {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: #f2f2f2;
+		opacity: 0.8;
+	}
+
+	.close {
+		position: absolute;
+		right: 15px;
+		top: 15px;
+		width: 30px;
+		height: 30px;
+		opacity: 0.3;
+		cursor: pointer;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:before, &:after {
+			position: absolute;
+			height: 30px;
+			width: 3px;
+			left: 15px;
+			background-color: #605955;
+			content: ' ';
+		}
+
+		&:before {
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+		}
+	}
+}

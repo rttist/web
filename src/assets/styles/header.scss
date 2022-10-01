@@ -10,7 +10,7 @@
 
 	@media(max-width: $size-small) {
 		height: auto;
-		
+
 		.center {
 			height: auto !important;
 			padding-bottom: 50px !important;
@@ -43,7 +43,6 @@
 		top: 67px;
 		right: auto;
 		left: calc(50% - 150px);
-		//opacity: 0.5;
 		transition: 0.5s;
 		z-index: 1;
 
@@ -72,11 +71,35 @@
 			left: auto;
 		}
 
-		.btn {
+		.run-playground {
 			position: absolute;
-			display: block;
-			bottom: 30px;
-			right: 30px;
+			width: 100px;
+			height: 100px;
+			background: url('../images/run-icon.png') center center no-repeat;
+			cursor: pointer;
+			top: 300px;
+			right: ceil(1233 / 2 - 75px);
+			opacity: 0.6;
+			
+			&:hover {
+				opacity: 1;
+			}
+
+			@media(max-width: $size-large) {
+				right: calc(25vw - 21px);
+			}
+
+			@media(max-width: $content-width) {
+				right: calc((100vw - 50rem) / 2 - 21px);
+			}
+
+			@media(max-width: $size-small) {
+				display: none;
+			}
+
+			span {
+				display: none;
+			}
 		}
 	}
 
@@ -98,7 +121,7 @@
 			top: 0;
 			left: -30px;
 			height: $header-height;
-			width: 50em;
+			width: 50rem;
 			background-image: linear-gradient(to right, $header-bg-color 0%, $header-bg-color 60%, rgba(0, 0, 0, 0) 100%);
 		}
 
@@ -172,12 +195,8 @@
 					span.name {
 						display: inline-block;
 						float: left;
-						//overflow: hidden;
 
 						@media(max-width: 520px) {
-							//width: 100%;
-							//display: block;
-							//margin: 0 auto;
 							float: none;
 						}
 
@@ -255,7 +274,9 @@
 					display: flex;
 					flex-wrap: wrap;
 					justify-content: center;
-					
+				}
+
+				@media(max-width: 405px) {
 					a.btn {
 						margin-right: 0;
 					}
@@ -267,6 +288,14 @@
 
 						&:hover {
 							background: fade-out($color-theme-tint-light, 0.7);
+						}
+					}
+
+					&.run-playground {
+						display: none;
+
+						@media(max-width: $size-small) {
+							display: inline-block;
 						}
 					}
 				}
