@@ -99,6 +99,25 @@
 				<section class="highlights">
 					<section>
 						<div>
+							<h1>Runtime Reflection</h1>
+							<p>
+								Reflection provides objects describing <a href="//docs.rttist.org/#/en/type">types</a> and <a href="//docs.rttist.org/#/en/module">modules</a>. 
+								You can use reflection to look up, dynamically import and create an instance of a type, 
+								list its properties, accessors, methods, constructors, decorators and other information.
+								You can also get the type of an existing object and/or statically check or compare types. 
+								If you are using decorators in your code, reflection enables you to access them and read their constant arguments.
+							</p>
+							
+							<p>
+								Type objects are inheritors of the <strong>Type</strong> class that is narrowable by the <a href="//docs.rttist.org/#/en/type/type-guards">set of type-guards</a>.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript"></code></pre>
+						</figure>
+					</section>
+					<section>
+						<div>
 							<h1>The Power of Reflection</h1>
 							<p>
 								Static metadata library of all the types and modules from project accessible at runtime.
@@ -336,7 +355,13 @@ await mazda3Factory.create();</code></pre>
 				document.querySelectorAll("pre code .operator").forEach(operator => {
 					if (
 						operator.innerText === ":"
-						&& operator.previousSibling.nodeType === Node.TEXT_NODE
+						&& (
+							operator.previousSibling.nodeType === Node.TEXT_NODE 
+							|| (
+								operator.previousElementSibling.classList.contains("punctuation")
+								&& operator.previousElementSibling.innerText === ")"
+							)
+						)
 						&& operator.nextSibling.nodeType === Node.TEXT_NODE
 						&& TYPE_MATCH.test(operator.nextSibling.textContent)
 					)
