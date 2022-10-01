@@ -99,6 +99,56 @@
 				<section class="highlights">
 					<section>
 						<div>
+							<h1>The Power of Reflection</h1>
+							<p>
+								Static metadata library of all the types and modules from project accessible at runtime.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript"><!--class ControllerBase {
+	get(id?: string) {
+		// ...
+	}
+}
+
+function route(route: string) {
+	return function &lt;T extends typeof ControllerBase>(target: T) {};
+}
+-->@route("motor")
+class MotorController extends ControllerBase {
+	get(id?: string) {
+		// ...
+	}
+}
+
+// Get the Type of the @route decorator.
+const routeDecoratorType = Reflect.getType&lt;typeof route>();
+
+// Find all classes decorated by the @route decorator.
+const controllers = Metadata.getTypes()
+	.filter(type => type.isClass())
+	.map(type => ({
+		type,
+		routeDecorator: type.getDecorators()
+			.find(decorator => decorator.is(routeDecoratorType))
+	}))
+	.filter(x => x.routeDecorator !== undefined);
+
+controllers.map(async x => {
+	const ClassCtor: typeof ControllerBase = await x.type.getCtor();
+	
+	// The @route decorator argument... "motor" in case of MotorController
+	const route = x.routeDecorator.getArguments()[0];
+	
+	app.get("/" + route + "/:id", (req, res) => {
+		return new ClassCtor().get(req.params.id);
+	})
+});</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
 							<h1>Metadata Library of Project Types and Modules</h1>
 							<p>
 								Static metadata library of all the types and modules from project accessible at runtime.
@@ -119,18 +169,55 @@ const allEntities: Type[] = Metadata.getModules()
 						<div>
 							<h1>Vast Majority of Types Supported</h1>
 							<p>
-								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types and
-								primitives.
+								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types.
 							</p>
 						</div>
 						<figure>
-						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
-
-const allEntities: Type[] = Metadata.getModules()
-	.filter(module => module.path.includes(__dirname))
-	.flatMap(module => module.getTypes())
-	.filter(type => type.exported &amp;&amp; type.isClass() 
-		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						<pre><code class="language-typescript">interface NativeTypes {
+	prop1: any;
+	prop2: unknown;
+	prop3: undefined;
+	prop4: null;
+	prop5: void;
+	prop6: string;
+	prop7: number;
+	prop8: BigInt;
+	prop9: Boolean;
+	prop10: Date;
+	prop11: Array&lt;number>;
+	prop12: Array&lt;Array&lt;number>>;
+	prop13: number[];
+	prop14: number[][];
+	prop15: Map&lt;string, string>;
+	prop16: WeakMap&lt;Function, string>;
+	prop17: Set&lt;string>;
+	prop18: WeakSet&lt;Function>;
+	prop19: Int8Array;
+	prop20: Uint8Array;
+	prop21: Uint8ClampedArray;
+	prop22: Int16Array;
+	prop23: Uint16Array;
+	prop24: Int32Array;
+	prop25: Uint32Array;
+	prop26: Float32Array;
+	prop27: Float64Array;
+	prop28: BigInt64Array;
+	prop29: BigUint64Array;
+	prop30: Symbol;
+	prop31: Promise&lt;boolean>;
+	prop32: Error;
+	prop33: RegExp;
+	prop34: ArrayBuffer;
+	prop35: SharedArrayBuffer;
+	prop36: Atomics;
+	prop37: DataView;
+	prop38: Generator;
+	prop39: Iterable&lt;any>;
+	prop40: IterableIterator&lt;any>;
+	prop41: AsyncIterator&lt;any>;
+	prop42: AsyncGeneratorFunction;
+	prop46: AsyncGenerator&lt;any>;
+}</code></pre>
 						</figure>
 					</section>
 
@@ -138,37 +225,60 @@ const allEntities: Type[] = Metadata.getModules()
 						<div>
 							<h1>Generic Type Parameters</h1>
 							<p>
-								Reflection over all the types such as classes, interfaces, type aliases and functions.
+								You can get the real type of type parameter at runtime.
+								Generic type parameter of type aliases, interfaces, functions, classes and methods are fully supported.
 							</p>
 						</div>
 						<figure>
-						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+						<pre><code class="language-typescript">class CarFactory&lt;TMotor extends Motor> {
+	constructor() {
+		console.log(
+			"Gonna create cars with", 
+			Reflect.getType&lt;TMotor>().name
+		);
+	}
 
-const allEntities: Type[] = Metadata.getModules()
-	.filter(module => module.path.includes(__dirname))
-	.flatMap(module => module.getTypes())
-	.filter(type => type.exported &amp;&amp; type.isClass() 
-		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+	changeMotor&lt;TNewMotor extends TMotor>():  {
+		console.log(
+			"Changing motor from",
+			Reflect.getType&lt;TMotor>().name,
+			"to",
+			Reflect.getType&lt;TNewMotor>().name
+		);
+	}
+
+	async create(): Car&lt;TMotor> {
+		// ...
+	}
+}
+						
+class SkyActiveG2019 extends Motor {}
+class SkyActiveG2022 extends SkyActiveG2019 {}
+
+const mazda3Factory = new Car&lt;SkyActiveG2019>();
+await mazda3Factory.create();
+mazda3Factory.changeMotor&lt;SkyActiveG2022>();
+await mazda3Factory.create();</code></pre>
 						</figure>
 					</section>
 
-					<section>
-						<div>
-							<h1>Runtime Generic Classes</h1>
-							<p>
-								Optionally, real generic classes generated from base classes at runtime.
-							</p>
-						</div>
-						<figure>
-						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
+<!--					<section>-->
+<!--						<div>-->
+<!--							<h1>Runtime Generic Classes</h1>-->
+<!--							<p>-->
+<!--								Optionally, real generic classes generated from base classes at runtime.-->
+<!--							</p>-->
+<!--						</div>-->
+<!--						<figure>-->
+<!--						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();-->
 
-const allEntities: Type[] = Metadata.getModules()
-	.filter(module => module.path.includes(__dirname))
-	.flatMap(module => module.getTypes())
-	.filter(type => type.exported &amp;&amp; type.isClass() 
-		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
-						</figure>
-					</section>
+<!--const allEntities: Type[] = Metadata.getModules()-->
+<!--	.filter(module => module.path.includes(__dirname))-->
+<!--	.flatMap(module => module.getTypes())-->
+<!--	.filter(type => type.exported &amp;&amp; type.isClass() -->
+<!--		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>-->
+<!--						</figure>-->
+<!--					</section>-->
 					<!--				<div class="tile">-->
 					<!--					<h1>Metadata library of types and modules</h1>-->
 					<!--					<p>Static metadata library of all the types and modules from project accessible at runtime.</p>-->
@@ -197,12 +307,12 @@ const allEntities: Type[] = Metadata.getModules()
 				</section>
 			</div>
 
-			<div class="section-wrap">
-				<section>
-					<h1 id="playground">Playground</h1>
+			<!--			<div class="section-wrap">-->
+			<!--				<section>-->
+			<!--					<h1 id="playground">Playground</h1>-->
 
-				</section>
-			</div>
+			<!--				</section>-->
+			<!--			</div>-->
 		</main>
 
 		<footer>
@@ -220,7 +330,7 @@ const allEntities: Type[] = Metadata.getModules()
 					}
 				});
 
-				const TYPE_MATCH = /\s[a-zA-Z0-9_@]/;
+				const TYPE_MATCH = /\s[a-zA-Z0-9_@<>]/;
 
 				// Fix types
 				document.querySelectorAll("pre code .operator").forEach(operator => {
