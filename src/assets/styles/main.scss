@@ -4,10 +4,23 @@ $content-width-small: 1300px;
 
 main {
 	width: 100%;
+	position: relative;
+
+	&:before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-image: url('../images/circles.png');
+		opacity: 0.065;
+	}
 
 	h1 {
 		font-size: 2.5rem;
 		margin-bottom: 0.35em;
+		font-weight: 600;
+		font-family: "Inter", Arial, sans-serif;
 	}
 
 	> div.section-wrap {
@@ -15,20 +28,39 @@ main {
 
 		&:nth-child(2n) {
 			background: $color-theme-tint-dark;
-			
+
 			> section {
 				color: $text-color-light;
 			}
 		}
-		
+
 		> section {
 			width: $content-width;
 			margin: 0 auto;
 			padding: 4rem 2rem;
 			color: $color-theme-tint-dark;
 
+			p:first-of-type {
+				font-size: 1.1rem;
+			}
+
 			@media(max-width: $content-width) {
 				width: 100%;
+			}
+
+			a {
+				color: $color-secondary;
+				text-decoration: underline;
+				text-decoration-color: transparentize($color-secondary, 0.5);
+
+				&:hover {
+					text-decoration-color: $color-secondary;
+				}
+			}
+
+			strong {
+				color: $color-secondary;
+				font-weight: 400;
 			}
 
 			&.highlights {
@@ -66,21 +98,30 @@ main {
 
 						div {
 							margin-top: 0 !important;
+							
+							figure {
+								display: flex;
+								justify-content: center;
+							}
 						}
 
 						> figure {
 							display: flex;
 							justify-content: center;
+							flex-direction: column;
 							margin-top: 50px;
 
 							pre {
 								width: max-content !important;
 								min-width: 70%;
+								max-width: 100%;
 
-								scrollbar-width: none;
+								@media(hover: none) {
+									scrollbar-width: none;
 
-								&::-webkit-scrollbar {
-									display: none;
+									&::-webkit-scrollbar {
+										display: none;
+									}
 								}
 							}
 						}

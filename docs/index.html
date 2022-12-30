@@ -7,7 +7,6 @@
 		<meta name="description" content="Runtime Type Information System for TypeScript">
 		<meta name="keywords" content="rttist,runtime,reflection,type,information,system,TypeScript,reflect,JavaScript">
 		<meta name="robots" content="index,follow">
-		<!--		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">-->
 		<link rel="stylesheet" href="assets/styles/style.css">
 		<link rel="icon" type="image/png" href="assets/favicon.png">
 		<script>
@@ -48,6 +47,9 @@
 	</head>
 	<body>
 		<div id="modal">
+			<div class="loading">
+				<div class="loading-spinner"></div>
+			</div>
 			<div class="background" onclick="playground.hide()"></div>
 			<div class="close" onclick="playground.hide()"></div>
 			<div class="content"></div>
@@ -99,124 +101,48 @@
 				<section class="highlights">
 					<section>
 						<div>
-							<h1>The Power of Reflection</h1>
+							<h1>Runtime Reflection</h1>
 							<p>
-								Static metadata library of all the types and modules from project accessible at runtime.
+								Reflection provides objects describing <a href="//docs.rttist.org/#/en/type">types</a> and <a href="//docs.rttist.org/#/en/module">modules</a>. 
+								You can use reflection to look up, dynamically import and create an instance of a type, 
+								list its properties, accessors, methods, constructors, decorators and other information.
+								You can also get the type of an existing object and/or statically check or compare types. 
+								If you are using decorators in your code, reflection enables you to access them and read their constant arguments.
+							</p>
+							
+							<p>
+								Type objects are inheritors of the <strong>Type</strong> class that is narrowable by the <a href="//docs.rttist.org/#/en/type/type-guards">set of type-guards</a>.
 							</p>
 						</div>
 						<figure>
-						<pre><code class="language-typescript"><!--class ControllerBase {
-	get(id?: string) {
-		// ...
-	}
+						<pre><code class="language-typescript">import { getType, Type, PropertyInfo, MethodInfo } from "rttist";
+
+interface Employee {
+	name: string;
+	salary: number;
+	sayHello();
+	sayHello(toSomebody: string);
 }
 
-function route(route: string) {
-	return function &lt;T extends typeof ControllerBase>(target: T) {};
-}
--->@route("motor")
-class MotorController extends ControllerBase {
-	get(id?: string) {
-		// ...
-	}
-}
+const type: Type = getType&lt;Employee>();
 
-// Get the Type of the @route decorator.
-const routeDecoratorType = Reflect.getType&lt;typeof route>();
-
-// Find all classes decorated by the @route decorator.
-const controllers = Metadata.getTypes()
-	.filter(type => type.isClass())
-	.map(type => ({
-		type,
-		routeDecorator: type.getDecorators()
-			.find(decorator => decorator.is(routeDecoratorType))
-	}))
-	.filter(x => x.routeDecorator !== undefined);
-
-controllers.map(async x => {
-	const ClassCtor: typeof ControllerBase = await x.type.getCtor();
+if (type.isInterface()) {
+	const properties = type.getProperties().map((prop: PropertyInfo) => prop.name);
+	const methods = type.getMethods().map((method: MethodInfo) => method.name);
 	
-	// The @route decorator argument... "motor" in case of MotorController
-	const route = x.routeDecorator.getArguments()[0];
+	console.log(properties); // > [ name, salary ]
+	console.log(methods); // > [ sayHello ] <!--
 	
-	app.get("/" + route + "/:id", (req, res) => {
-		return new ClassCtor().get(req.params.id);
-	})
-});</code></pre>
-						</figure>
-					</section>
+	const sayHelloMethod: MethodInfo = type.getMethods().find(m => m.name === "sayHello");
+	const signatures = sayHelloMethod.getSignatures()
+		.map(sig => {
+			const parameters = sig.getParameters()
+				.map(param => param.name + ": " + param.type.name);
 
-					<section>
-						<div>
-							<h1>Metadata Library of Project Types and Modules</h1>
-							<p>
-								Static metadata library of all the types and modules from project accessible at runtime.
-							</p>
-						</div>
-						<figure>
-						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();
-
-const allEntities: Type[] = Metadata.getModules()
-	.filter(module => module.path.includes(__dirname))
-	.flatMap(module => module.getTypes())
-	.filter(type => type.exported &amp;&amp; type.isClass() 
-		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
-						</figure>
-					</section>
-
-					<section>
-						<div>
-							<h1>Vast Majority of Types Supported</h1>
-							<p>
-								Reflection over the types such as classes, interfaces, type aliases, functions, decorators including native types.
-							</p>
-						</div>
-						<figure>
-						<pre><code class="language-typescript">interface NativeTypes {
-	prop1: any;
-	prop2: unknown;
-	prop3: undefined;
-	prop4: null;
-	prop5: void;
-	prop6: string;
-	prop7: number;
-	prop8: BigInt;
-	prop9: Boolean;
-	prop10: Date;
-	prop11: Array&lt;number>;
-	prop12: Array&lt;Array&lt;number>>;
-	prop13: number[];
-	prop14: number[][];
-	prop15: Map&lt;string, string>;
-	prop16: WeakMap&lt;Function, string>;
-	prop17: Set&lt;string>;
-	prop18: WeakSet&lt;Function>;
-	prop19: Int8Array;
-	prop20: Uint8Array;
-	prop21: Uint8ClampedArray;
-	prop22: Int16Array;
-	prop23: Uint16Array;
-	prop24: Int32Array;
-	prop25: Uint32Array;
-	prop26: Float32Array;
-	prop27: Float64Array;
-	prop28: BigInt64Array;
-	prop29: BigUint64Array;
-	prop30: Symbol;
-	prop31: Promise&lt;boolean>;
-	prop32: Error;
-	prop33: RegExp;
-	prop34: ArrayBuffer;
-	prop35: SharedArrayBuffer;
-	prop36: Atomics;
-	prop37: DataView;
-	prop38: Generator;
-	prop39: Iterable&lt;any>;
-	prop40: IterableIterator&lt;any>;
-	prop41: AsyncIterator&lt;any>;
-	prop42: AsyncGeneratorFunction;
-	prop46: AsyncGenerator&lt;any>;
+			return `sayHello(${parameters.join(", ")})`
+		});
+	
+	console.log(signatures); // > [ sayHello(), sayHello(toSomebody: string) ]-->
 }</code></pre>
 						</figure>
 					</section>
@@ -230,35 +156,255 @@ const allEntities: Type[] = Metadata.getModules()
 							</p>
 						</div>
 						<figure>
-						<pre><code class="language-typescript">class CarFactory&lt;TMotor extends Motor> {
+						<pre><code class="language-typescript">class Logger&lt;TContext> {
 	constructor() {
+		this.context = Rttist.getType&lt;TContext>().name;
+		
 		console.log(
-			"Gonna create cars with", 
-			Reflect.getType&lt;TMotor>().name
+			"Gonna log under context", this.context
 		);
 	}
 
-	changeMotor&lt;TNewMotor extends TMotor>():  {
+	changeContext&lt;TNewContext>():  {
+		this.context = Rttist.getType&lt;TNewContext>().name;
+
 		console.log(
-			"Changing motor from",
-			Reflect.getType&lt;TMotor>().name,
-			"to",
-			Reflect.getType&lt;TNewMotor>().name
+			"Changing context from",
+			Rttist.getType&lt;TContext>().name,
+			"to", this.context
 		);
 	}
 
-	async create(): Car&lt;TMotor> {
-		// ...
+	log(...args: any[]): void {
+		console.log(`[${this.context}]`, ...args);
 	}
 }
-						
-class SkyActiveG2019 extends Motor {}
-class SkyActiveG2022 extends SkyActiveG2019 {}
 
-const mazda3Factory = new Car&lt;SkyActiveG2019>();
-await mazda3Factory.create();
-mazda3Factory.changeMotor&lt;SkyActiveG2022>();
-await mazda3Factory.create();</code></pre>
+const logger = new Logger&lt;UserController>();
+logger.log("Guest logged in."); // > [UserController] Guest logged in.
+logger.changeContext&lt;UserService>();
+logger.log("New user created."); // > [UserService] New user created.</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Static Type Checking</h1>
+							<p>
+								With <strong>Type</strong> objects you are able to validate types without value (or instance of object).
+							</p>
+							<p>
+								Every <strong>Type</strong> have method <code>Type.is(type)</code> to compare that two types are the same <strong>Type</strong>,
+								or for example the <strong>InterfaceType</strong> or the <strong>ClassType</strong>, which represent interfaces and classes, have method
+								<code>Type.isDerivedFrom()</code> that checks if one type inherits from another.
+							</p>
+						</div>
+						<figure>
+							<pre><code class="language-typescript">interface ILoggable {
+	log();
+}
+
+abstract class Person {}
+
+export function logPerson&lt;TPerson extends Person>(person: TPerson) {
+	const personType: Type = Rttist.getType&lt;Person>();
+	const personParamType: Type = Rttist.getType&lt;TPerson>();
+
+	if (!personParamType.isSubclassOf(personType) 
+		|| personParamType.is(personType) 
+		|| personParamType.abstract
+	) 
+		throw new Error();
+	
+	if (personParamType.isDerivedFrom(Rttist.getType&lt;ILoggable>())) {
+		person.log();
+	}
+	else {
+		console.log(person);
+	}
+}
+
+							</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Searchable Metadata Library of&nbsp;Project Types and Modules</h1>
+							<p>
+								Static metadata library of all the types and modules generated from a project accessible via API at runtime.
+							</p>
+							
+							<p>
+								Lets have an <code>Entity</code> interface from some ORM. 
+								We want to find all the not-abstract classes implementing that interface and work with them somehow.
+								That is pretty simple task...
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">import { Metadata } from "Rttist";
+							
+// First, get type of the interface `Entity`
+const entityType = Rttist.getType&lt;Entity>();
+
+// Get all the JS modules from current directory,
+const allEntities: Type[] = Metadata.getModules()
+	.filter(module => module.path.includes(__dirname))
+	// select all the contained types,
+	.flatMap(module => module.getTypes())
+	// check if it is exported class,
+	.filter(type => type.exported &amp;&amp; type.isClass() 
+		// not abstract and is derived from the `Entity`.
+		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>Vast Majority of&nbsp;Types Supported</h1>
+							<p>
+								Besides user defined functions, decorators, classes, interfaces and type aliases,
+								reflection works with almost all the native types.
+								If there is a type we do not support file an issue.
+							</p>
+						</div>
+						<figure>
+						<pre><code class="language-typescript">[
+	any, unknown, undefined, null, void, string, String, number, Number, 
+	boolean, Boolean, true, false, BigInt, Date, RegExp,
+	Array&lt;number>, Array&lt;Array&lt;number>>, number[], number[][], 
+	Map&lt;string, string>, WeakMap&lt;Function, string>, 
+	Set&lt;string>, WeakSet&lt;Function>, 
+	Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array,
+	Int32Array, Uint32Array, Float32Array, Float64Array,
+	BigInt64Array, BigUint64Array,
+	symbol, unique symbol, Symbol, Promise&lt;boolean>, Error,
+	ArrayBuffer, SharedArrayBuffer,
+	Atomics, DataView, Generator,
+	Iterable&lt;any>, IterableIterator&lt;any>,
+	AsyncIterator&lt;any>, AsyncGeneratorFunction, AsyncGenerator&lt;any>,
+]</code></pre>
+						</figure>
+					</section>
+
+					<section>
+						<div>
+							<h1>The&nbsp;Power of&nbsp;the&nbsp;Reflection</h1>
+<!--							<p>-->
+<!--								Reflection is one of the great features of modern programming languages.-->
+<!--							</p>-->
+							<p>
+								Reflection is a very poweful feature that allows you to interact with your objects and types at runtime. 
+								To get the type of variable that is unknown beforehand by the programmer, or to find and instantiate a user defined class in a framework. 
+								It is an interesting feature that allows you to write highly abstract code.
+								
+<!--								Be it to create an object with a dynamically computed type, or to get the type of variable that is not known beforehand by the programmer. -->
+<!--								It is an interesting feature that allows you to write highly abstract code.-->
+							</p>
+							
+							<p>
+								Imagine you are creating an MVC framework. You want to let your users declare classes (controllers) 
+								decorated by predefined set of decorators which will setup the controller's behavior.
+							</p>
+							
+							<p>
+								How would you do that? 
+								How to even discore those controllers?
+								Using file-system, preloading all the modules? Forse user to register all the controllers somehow?
+								Well, it is a simple job for reflection.
+							</p>
+
+							<figure>
+								<pre><code class="language-typescript">// Let's have a controller decorated by route decorator
+@route("users")
+class UserController extends ControllerBase {
+	get(id?: string) {
+		// ...
+	}
+}</code></pre>
+							</figure>
+						</div>
+
+						<figure>
+							<!--class ControllerBase {
+								get(id?: string) {
+									// ...
+								}
+							}
+							
+							function route(route: string) {
+								return function &lt;T extends typeof ControllerBase>(target: T) {};
+							}
+							-->
+						<pre><code class="language-typescript">// Find all the controllers and register them in router
+// Get the Type of the @route decorator.
+const routeDecoratorType = Rttist.getType&lt;typeof route>();
+							
+// Get the Type of the ControllerBase class.
+const baseType = Rttist.getType&lt;ControllerBase>();
+
+// Find all classes extended from ControllerBase decorated by the @route.
+const controllers = Metadata.getTypes()
+	.filter(type => type.isClass() && type.isDerivedFrom(baseType))
+	.map(type => ({
+		type,
+		routeDecorator: type.getDecorators()
+			.find(decorator => decorator.is(routeDecoratorType))
+	}))
+	.filter(x => x.routeDecorator !== undefined);
+
+controllers.map(async x => {
+	const ClassCtor: typeof ControllerBase = await x.type.getCtor();
+	
+	// The @route decorator argument... "users" in case of UserController
+	const route = x.routeDecorator.getArguments()[0];
+	
+	app.get("/" + route + "/:id", (req, res) => {
+		return new ClassCtor().get(req.params.id);
+	})
+});</code></pre>
+						</figure>
+					</section>
+					
+					<section>
+						<div>
+							<h1>Works With 3rd Party Packages</h1>
+							<p>
+								Every package, using <strong>RTTIST</strong> or not, is gonna work with your codebase.
+								You can get type of any class, interface, type alias, function etc. imported from any package.
+							</p>
+							
+							<p>
+								Packages using <strong>RTTIST</strong> can publish metadata along with source code 
+								which will reduce the time of your build in case you use types from those packages. 
+								If there are no metadata publish, it will be generated.
+							</p>
+						</div>
+						<figure>
+							<pre><code class="language-typescript">import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+
+@Entity()
+export class User extends BaseEntity {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    firstName: string
+
+    @Column()
+    lastName: string
+
+    @Column()
+    age: number
+}</code></pre>
+							<pre><code class="language-typescript">import { Entity, BaseEntity } from "typeorm";
+import { Metadata } from "Rttist";
+
+const baseEntity = Rttist.getType&lt;BaseEntity>;
+
+Metadata.getTypes()
+	.filter(t => t.isClass() && t.isDerivedFrom(baseEntity));
+</code></pre>
 						</figure>
 					</section>
 
@@ -316,13 +462,55 @@ await mazda3Factory.create();</code></pre>
 		</main>
 
 		<footer>
-			<span class="copy">&copy 2022 RTTIST.org</span>
+			<div class="grid">
+<!--				<div>-->
+<!--					<span>Transformers</span>-->
+<!--					<a href="https://github.com/Hookyns/tst-reflect">tst-reflect</a>-->
+<!--					<a href="https://github.com/rttist/wasm-transformer">WASM transformer</a>-->
+<!--				</div>-->
+			</div>
+			<span class="copy">&copy 2022 RTTIST.org.</span>
 		</footer>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
+				const MAX_ANGLE = 3;
+				const headerEditor = document.querySelector(".header .editor");
+
+				if (headerEditor) {
+					const runButton = headerEditor.querySelector(".run-playground");
+					let centerPoint = 0;
+					let updateTimeout;
+
+					function updateEditorCenter() {
+						const rect = headerEditor.getBoundingClientRect();
+						centerPoint = rect.left + runButton.offsetLeft + 50;
+					}
+					
+					function planUpdate() {
+						if (updateTimeout) {
+							clearTimeout(updateTimeout);
+						}
+
+						updateTimeout = setTimeout(() => {
+							updateEditorCenter();
+						}, 100);
+					}
+
+					updateEditorCenter();
+
+					window.addEventListener("resize", () => {
+						planUpdate();
+					});
+
+					document.addEventListener("mousemove", (event) => {
+						const angle = MAX_ANGLE / 500 * Math.min(500, Math.abs(event.clientX - centerPoint));
+						headerEditor.style.transform = "rotateY(" + (event.clientX < centerPoint ? "-" : "") + angle + "deg)";
+					});
+				}
+				
 				// Fix wrong keywords
 				document.querySelectorAll("pre code .punctuation + .keyword").forEach(keywordElement => {
 					if (keywordElement.previousElementSibling.innerText === ".") {
@@ -336,7 +524,13 @@ await mazda3Factory.create();</code></pre>
 				document.querySelectorAll("pre code .operator").forEach(operator => {
 					if (
 						operator.innerText === ":"
-						&& operator.previousSibling.nodeType === Node.TEXT_NODE
+						&& (
+							operator.previousSibling.nodeType === Node.TEXT_NODE 
+							|| (
+								operator.previousElementSibling.classList.contains("punctuation")
+								&& operator.previousElementSibling.innerText === ")"
+							)
+						)
 						&& operator.nextSibling.nodeType === Node.TEXT_NODE
 						&& TYPE_MATCH.test(operator.nextSibling.textContent)
 					)

@@ -1,6 +1,15 @@
 @import './variables';
 $base-color: #b2b2b2;
 
+p > code {
+	font-family: 'Source Code Pro', Consolas, 'Andale Mono', 'Ubuntu Mono', 'Courier New', monospace;
+	font-weight: 400;
+	background: darken($page-bg-color, 5%);
+	display: inline-block;
+	padding: 0 0.25em;
+	border: 1px solid darken($page-bg-color, 10%);
+}
+
 pre code[class*='language-'] {
 	font-size: 0.9rem;
 	line-height: 1.4em;
@@ -26,7 +35,7 @@ pre[class*='language-'] {
 	margin: 0.5em 0;
 	padding: 1em;
 	overflow: auto;
-	background: $color-primary-dark-blue;
+	background: $color-primary;
 }
 
 .namespace {
