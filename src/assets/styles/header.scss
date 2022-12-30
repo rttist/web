@@ -7,6 +7,7 @@
 	overflow: hidden;
 	max-width: 100%;
 	font-family: 'Raleway', Arial, sans-serif;
+	perspective: 1000px;
 
 	@media(max-width: $size-small) {
 		height: auto;
@@ -43,8 +44,8 @@
 		top: 67px;
 		right: auto;
 		left: calc(50% - 150px);
-		transition: 0.5s;
 		z-index: 1;
+		transition: 200ms linear all;
 
 		&:hover {
 			opacity: 1;
@@ -78,8 +79,9 @@
 			background: url('../images/run-icon.png') center center no-repeat;
 			cursor: pointer;
 			top: 300px;
-			right: ceil(1233 / 2 - 75px);
+			right: 541px;
 			opacity: 0.6;
+			transition: 0.2s;
 			
 			&:hover {
 				opacity: 1;
@@ -177,11 +179,16 @@
 			}
 
 			header {
+				h1, h2 {
+					font-family: 'Raleway', Arial, sans-serif;
+				}
+
 				h1 {
 					position: relative;
 					font-size: 8rem;
 					margin-bottom: 10px;
 					color: $color-theme-tint-dark;
+					font-weight: 400;
 					overflow: hidden;
 
 					@media(max-width: $size-small) {
@@ -243,6 +250,7 @@
 				h2 {
 					position: relative;
 					font-size: 3.25rem;
+					font-weight: 300;
 
 					@media(max-width: $size-small) {
 						font-size: 2rem;

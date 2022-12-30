@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Source+Code+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Source+Code+Pro@400&family=Inter:wght@100;300;500&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -65,6 +64,16 @@ a.btn:hover {
   display: none;
   transition: 0.5s;
 }
+#modal .loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
 #modal.open {
   display: block;
 }
@@ -110,6 +119,40 @@ a.btn:hover {
 }
 #modal .close:after {
   transform: rotate(-45deg);
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.loading-spinner:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: ring-spin 1.2s linear infinite;
+}
+
+@keyframes ring-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+p > code {
+  font-family: "Source Code Pro", Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+  font-weight: 400;
+  background: #e5e5e5;
+  display: inline-block;
+  padding: 0 0.25em;
+  border: 1px solid #d9d9d9;
 }
 
 pre code[class*=language-] {
@@ -358,6 +401,7 @@ pre[class*=language-] {
   overflow: hidden;
   max-width: 100%;
   font-family: "Raleway", Arial, sans-serif;
+  perspective: 1000px;
 }
 @media (max-width: 1024px) {
   .header {
@@ -392,8 +436,8 @@ pre[class*=language-] {
   top: 67px;
   right: auto;
   left: calc(50% - 150px);
-  transition: 0.5s;
   z-index: 1;
+  transition: 200ms linear all;
 }
 .header .editor:hover {
   opacity: 1;
@@ -425,8 +469,9 @@ pre[class*=language-] {
   background: url("../images/run-icon.png") center center no-repeat;
   cursor: pointer;
   top: 300px;
-  right: 542px;
+  right: 541px;
   opacity: 0.6;
+  transition: 0.2s;
 }
 .header .editor .run-playground:hover {
   opacity: 1;
@@ -517,11 +562,15 @@ pre[class*=language-] {
     margin-top: 90px;
   }
 }
+.header .center .title header h1, .header .center .title header h2 {
+  font-family: "Raleway", Arial, sans-serif;
+}
 .header .center .title header h1 {
   position: relative;
   font-size: 8rem;
   margin-bottom: 10px;
   color: #6b65a0;
+  font-weight: 400;
   overflow: hidden;
 }
 @media (max-width: 1024px) {
@@ -583,6 +632,7 @@ pre[class*=language-] {
 .header .center .title header h2 {
   position: relative;
   font-size: 3.25rem;
+  font-weight: 300;
 }
 @media (max-width: 1024px) {
   .header .center .title header h2 {
@@ -634,10 +684,22 @@ pre[class*=language-] {
 
 main {
   width: 100%;
+  position: relative;
+}
+main:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/circles.png");
+  opacity: 0.065;
 }
 main h1 {
   font-size: 2.5rem;
   margin-bottom: 0.35em;
+  font-weight: 600;
+  font-family: "Inter", Arial, sans-serif;
 }
 main > div.section-wrap {
   width: 100%;
@@ -653,6 +715,9 @@ main > div.section-wrap > section {
   margin: 0 auto;
   padding: 4rem 2rem;
   color: #6b65a0;
+}
+main > div.section-wrap > section p:first-of-type {
+  font-size: 1.1rem;
 }
 @media (max-width: 1600px) {
   main > div.section-wrap > section {
@@ -701,14 +766,24 @@ main > div.section-wrap > section.highlights > section:first-child {
   main > div.section-wrap > section.highlights > section div {
     margin-top: 0 !important;
   }
+  main > div.section-wrap > section.highlights > section div figure {
+    display: flex;
+    justify-content: center;
+  }
   main > div.section-wrap > section.highlights > section > figure {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     margin-top: 50px;
   }
   main > div.section-wrap > section.highlights > section > figure pre {
     width: max-content !important;
     min-width: 70%;
+    max-width: 100%;
+  }
+}
+@media (max-width: 1300px) and (hover: none) {
+  main > div.section-wrap > section.highlights > section > figure pre {
     scrollbar-width: none;
   }
   main > div.section-wrap > section.highlights > section > figure pre::-webkit-scrollbar {
@@ -747,4 +822,11 @@ footer {
   font-family: Arial, sans-serif;
   text-align: center;
   font-size: 0.8rem;
+}
+footer .grid {
+  display: grid;
+  gap: 1em;
+}
+footer .copy {
+  font-size: 0.7rem;
 }
