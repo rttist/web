@@ -60,7 +60,6 @@
 			<div class="glow-under"></div>
 			<div class="editor">
 				<div class="run-playground" onclick="playground.open()"><span>Run StackBlitz project.</span></div>
-				<!--<a class="btn" href="#playground" onclick="return scrollToHref(this)">RUN PROJECT</a>-->
 			</div>
 
 			<div class="center">
@@ -158,7 +157,7 @@ if (type.isInterface()) {
 						<figure>
 						<pre><code class="language-typescript">class Logger&lt;TContext> {
 	constructor() {
-		this.context = Rttist.getType&lt;TContext>().name;
+		this.context = getType&lt;TContext>().name;
 		
 		console.log(
 			"Gonna log under context", this.context
@@ -166,11 +165,11 @@ if (type.isInterface()) {
 	}
 
 	changeContext&lt;TNewContext>():  {
-		this.context = Rttist.getType&lt;TNewContext>().name;
+		this.context = getType&lt;TNewContext>().name;
 
 		console.log(
 			"Changing context from",
-			Rttist.getType&lt;TContext>().name,
+			getType&lt;TContext>().name,
 			"to", this.context
 		);
 	}
@@ -194,8 +193,8 @@ logger.log("New user created."); // > [UserService] New user created.</code></pr
 								With <strong>Type</strong> objects you are able to validate types without value (or instance of object).
 							</p>
 							<p>
-								Every <strong>Type</strong> have method <code>Type.is(type)</code> to compare that two types are the same <strong>Type</strong>,
-								or for example the <strong>InterfaceType</strong> or the <strong>ClassType</strong>, which represent interfaces and classes, have method
+								Every <strong>Type</strong> have method <code>Type.is(type)</code> to compare that two types are the same <strong>Type</strong>.
+								Or for example the <strong>InterfaceType</strong> and the <strong>ClassType</strong> have method
 								<code>Type.isDerivedFrom()</code> that checks if one type inherits from another.
 							</p>
 						</div>
@@ -207,8 +206,8 @@ logger.log("New user created."); // > [UserService] New user created.</code></pr
 abstract class Person {}
 
 export function logPerson&lt;TPerson extends Person>(person: TPerson) {
-	const personType: Type = Rttist.getType&lt;Person>();
-	const personParamType: Type = Rttist.getType&lt;TPerson>();
+	const personType: Type = getType&lt;Person>();
+	const personParamType: Type = getType&lt;TPerson>();
 
 	if (!personParamType.isSubclassOf(personType) 
 		|| personParamType.is(personType) 
@@ -216,7 +215,7 @@ export function logPerson&lt;TPerson extends Person>(person: TPerson) {
 	) 
 		throw new Error();
 	
-	if (personParamType.isDerivedFrom(Rttist.getType&lt;ILoggable>())) {
+	if (personParamType.isDerivedFrom(getType&lt;ILoggable>())) {
 		person.log();
 	}
 	else {
@@ -237,7 +236,7 @@ export function logPerson&lt;TPerson extends Person>(person: TPerson) {
 							
 							<p>
 								Lets have an <code>Entity</code> interface from some ORM. 
-								We want to find all the not-abstract classes implementing that interface and work with them somehow.
+								We want to find all the not-abstract classes implementing that interface and do something with them.
 								That is pretty simple task...
 							</p>
 						</div>
@@ -245,7 +244,7 @@ export function logPerson&lt;TPerson extends Person>(person: TPerson) {
 						<pre><code class="language-typescript">import { Metadata } from "Rttist";
 							
 // First, get type of the interface `Entity`
-const entityType = Rttist.getType&lt;Entity>();
+const entityType = getType&lt;Entity>();
 
 // Get all the JS modules from current directory,
 const allEntities: Type[] = Metadata.getModules()
@@ -264,8 +263,8 @@ const allEntities: Type[] = Metadata.getModules()
 							<h1>Vast Majority of&nbsp;Types Supported</h1>
 							<p>
 								Besides user defined functions, decorators, classes, interfaces and type aliases,
-								reflection works with almost all the native types.
-								If there is a type we do not support file an issue.
+								reflection works with almost all native types.
+								If there is a type we do not support, file an issue.
 							</p>
 						</div>
 						<figure>
@@ -289,7 +288,7 @@ const allEntities: Type[] = Metadata.getModules()
 
 					<section>
 						<div>
-							<h1>The&nbsp;Power of&nbsp;the&nbsp;Reflection</h1>
+							<h1>The&nbsp;Power of&nbsp;Reflection</h1>
 <!--							<p>-->
 <!--								Reflection is one of the great features of modern programming languages.-->
 <!--							</p>-->
@@ -297,9 +296,6 @@ const allEntities: Type[] = Metadata.getModules()
 								Reflection is a very poweful feature that allows you to interact with your objects and types at runtime. 
 								To get the type of variable that is unknown beforehand by the programmer, or to find and instantiate a user defined class in a framework. 
 								It is an interesting feature that allows you to write highly abstract code.
-								
-<!--								Be it to create an object with a dynamically computed type, or to get the type of variable that is not known beforehand by the programmer. -->
-<!--								It is an interesting feature that allows you to write highly abstract code.-->
 							</p>
 							
 							<p>
@@ -309,9 +305,9 @@ const allEntities: Type[] = Metadata.getModules()
 							
 							<p>
 								How would you do that? 
-								How to even discore those controllers?
-								Using file-system, preloading all the modules? Forse user to register all the controllers somehow?
-								Well, it is a simple job for reflection.
+								How to even discover those controllers?
+								Using file-system, preloading all the modules? Force user to register all the controllers manually?
+								Well, there are many dirty ways, but it is clear and simple job for reflection.
 							</p>
 
 							<figure>
@@ -338,10 +334,10 @@ class UserController extends ControllerBase {
 							-->
 						<pre><code class="language-typescript">// Find all the controllers and register them in router
 // Get the Type of the @route decorator.
-const routeDecoratorType = Rttist.getType&lt;typeof route>();
+const routeDecoratorType = getType&lt;typeof route>();
 							
 // Get the Type of the ControllerBase class.
-const baseType = Rttist.getType&lt;ControllerBase>();
+const baseType = getType&lt;ControllerBase>();
 
 // Find all classes extended from ControllerBase decorated by the @route.
 const controllers = Metadata.getTypes()
@@ -370,18 +366,19 @@ controllers.map(async x => {
 						<div>
 							<h1>Works With 3rd Party Packages</h1>
 							<p>
-								Every package, using <strong>RTTIST</strong> or not, is gonna work with your codebase.
+								Every package, using <strong>RTTIST</strong> or not, is going to work with your codebase.
 								You can get type of any class, interface, type alias, function etc. imported from any package.
 							</p>
 							
 							<p>
 								Packages using <strong>RTTIST</strong> can publish metadata along with source code 
 								which will reduce the time of your build in case you use types from those packages. 
-								If there are no metadata publish, it will be generated.
+								If there is no metadata published, it will be generated.
 							</p>
 						</div>
 						<figure>
-							<pre><code class="language-typescript">import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+							<pre><code class="language-typescript">// Using TypeORM package
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @Entity()
 export class User extends BaseEntity {
@@ -397,68 +394,18 @@ export class User extends BaseEntity {
     @Column()
     age: number
 }</code></pre>
-							<pre><code class="language-typescript">import { Entity, BaseEntity } from "typeorm";
+							<pre><code class="language-typescript">import { BaseEntity } from "typeorm";
 import { Metadata } from "Rttist";
 
-const baseEntity = Rttist.getType&lt;BaseEntity>;
+const baseEntity = getType&lt;BaseEntity>;
 
 Metadata.getTypes()
 	.filter(t => t.isClass() && t.isDerivedFrom(baseEntity));
 </code></pre>
 						</figure>
 					</section>
-
-<!--					<section>-->
-<!--						<div>-->
-<!--							<h1>Runtime Generic Classes</h1>-->
-<!--							<p>-->
-<!--								Optionally, real generic classes generated from base classes at runtime.-->
-<!--							</p>-->
-<!--						</div>-->
-<!--						<figure>-->
-<!--						<pre><code class="language-typescript">const entityType = Reflect.getType&lt;Entity>();-->
-
-<!--const allEntities: Type[] = Metadata.getModules()-->
-<!--	.filter(module => module.path.includes(__dirname))-->
-<!--	.flatMap(module => module.getTypes())-->
-<!--	.filter(type => type.exported &amp;&amp; type.isClass() -->
-<!--		&amp;&amp; !type.abstract && type.isDerivedFrom(entityType));</code></pre>-->
-<!--						</figure>-->
-<!--					</section>-->
-					<!--				<div class="tile">-->
-					<!--					<h1>Metadata library of types and modules</h1>-->
-					<!--					<p>Static metadata library of all the types and modules from project accessible at runtime.</p>-->
-					<!--				</div>-->
-
-					<!--				<div class="tile">-->
-					<!--					<h1>All types supported</h1>-->
-					<!--					<p>-->
-					<!--						Reflection over all the types such as classes, interfaces, type aliases and functions.-->
-					<!--					</p>-->
-					<!--				</div>-->
-
-					<!--				<div class="tile">-->
-					<!--					<h1>Generic type parameters</h1>-->
-					<!--					<p>-->
-					<!--						Reflection over generic type parameters of methods, functions and classes.-->
-					<!--					</p>-->
-					<!--				</div>-->
-
-					<!--				<div class="tile">-->
-					<!--					<h1>Runtime generic classes</h1>-->
-					<!--					<p>-->
-					<!--						Optionally, real generic classes generated from base classes at runtime.-->
-					<!--					</p>-->
-					<!--				</div>-->
 				</section>
 			</div>
-
-			<!--			<div class="section-wrap">-->
-			<!--				<section>-->
-			<!--					<h1 id="playground">Playground</h1>-->
-
-			<!--				</section>-->
-			<!--			</div>-->
 		</main>
 
 		<footer>
@@ -540,6 +487,20 @@ Metadata.getTypes()
 						operator.nextSibling.replaceWith(wrap.children[0]);
 					}
 				});
+				
+				// Animate highlights
+				const sections = document.querySelectorAll("section.highlights > section")
+				const VISIBLE_CLASSNAME = "visible-animated";
+				const observer = new window.IntersectionObserver(entries => {
+					entries
+						.filter(entry => entry.isIntersecting && !entry.target.classList.contains(VISIBLE_CLASSNAME))
+						.forEach(entry => entry.target.classList.add(VISIBLE_CLASSNAME))
+				}, {
+					root: null,
+					threshold: 0.05
+				})
+
+				sections.forEach(section => observer.observe(section));
 			});
 		</script>
 	</body>

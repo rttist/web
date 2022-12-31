@@ -13,7 +13,7 @@ main {
 		width: 100%;
 		height: 100%;
 		background-image: url('../images/circles.png');
-		opacity: 0.065;
+		opacity: 0.075;
 	}
 
 	h1 {
@@ -69,7 +69,22 @@ main {
 					margin-top: 150px;
 					overflow: hidden;
 
+					opacity: 0;
+					transform: translateX(25%);
+					transition: 0.5s;
+
+					&.visible-animated {
+						opacity: 1;
+						transform: none;
+					}
+
 					&:nth-child(2n) {
+						transform: translateX(-25%);
+
+						&.visible-animated {
+							transform: none;
+						}
+
 						> div {
 							float: right;
 							padding-left: 50px;
@@ -88,6 +103,11 @@ main {
 					}
 
 					@media(max-width: $content-width-small) {
+						// TODO: Change size of text column from 50:50 to 40:60
+					}
+
+					@media(max-width: $size-small) {
+					//@media(max-width: $content-width-small) {
 						margin-top: 80px;
 
 						> div, > figure {
@@ -101,13 +121,14 @@ main {
 							
 							figure {
 								display: flex;
+								align-items: center;
 								justify-content: center;
 							}
 						}
 
 						> figure {
 							display: flex;
-							justify-content: center;
+							align-items: center;
 							flex-direction: column;
 							margin-top: 50px;
 
