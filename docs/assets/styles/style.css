@@ -691,6 +691,7 @@ pre[class*=language-] {
 main {
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 main:before {
   content: " ";

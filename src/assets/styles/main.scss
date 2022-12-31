@@ -5,6 +5,7 @@ $content-width-small: 1300px;
 main {
 	width: 100%;
 	position: relative;
+	overflow: hidden;
 
 	&:before {
 		content: ' ';
