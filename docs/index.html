@@ -423,6 +423,10 @@ Metadata.getTypes()
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
+				const VISIBLE_CLASSNAME = "visible-animated";
+
+				document.querySelector(".header .title h1").classList.add(VISIBLE_CLASSNAME);
+				
 				const MAX_ANGLE = 3;
 				const headerEditor = document.querySelector(".header .editor");
 
@@ -490,7 +494,6 @@ Metadata.getTypes()
 				
 				// Animate highlights
 				const sections = document.querySelectorAll("section.highlights > section")
-				const VISIBLE_CLASSNAME = "visible-animated";
 				const observer = new window.IntersectionObserver(entries => {
 					entries
 						.filter(entry => entry.isIntersecting && !entry.target.classList.contains(VISIBLE_CLASSNAME))

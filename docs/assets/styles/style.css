@@ -596,13 +596,19 @@ pre[class*=language-] {
   content: "RTTIST";
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: transparent;
+  transition: 0.5s;
 }
 .header .center .title header h1 span.name span {
   position: absolute;
-  background: linear-gradient(90deg, #6b639f, #769bc0);
-  -webkit-background-clip: text;
+  background: linear-gradient(90deg, #6b639f, #769bc0) no-repeat -450px 0;
   background-clip: text;
+  color: #6b639f;
+  transition: 1s;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.header .center .title header h1.visible-animated span.name span {
+  background-position: 0 0;
 }
 .header .center .title header h1 span.logomark {
   position: relative;
@@ -693,7 +699,7 @@ main:before {
   width: 100%;
   height: 100%;
   background-image: url("../images/circles.png");
-  opacity: 0.075;
+  opacity: 0.085;
 }
 main h1 {
   font-size: 2.5rem;
@@ -744,6 +750,9 @@ main > div.section-wrap > section.highlights > section {
   transform: translateX(25%);
   transition: 0.5s;
 }
+main > div.section-wrap > section.highlights > section:first-child {
+  margin-top: 0;
+}
 main > div.section-wrap > section.highlights > section.visible-animated {
   opacity: 1;
   transform: none;
@@ -761,20 +770,47 @@ main > div.section-wrap > section.highlights > section:nth-child(2n) > div {
 }
 main > div.section-wrap > section.highlights > section:nth-child(2n) > figure {
   float: left;
-  padding-left: 0;
+}
+main > div.section-wrap > section.highlights > section > div {
+  float: left;
+  margin-top: 50px;
+  width: 50%;
   padding-right: 50px;
 }
-main > div.section-wrap > section.highlights > section:first-child {
-  margin-top: 0;
+main > div.section-wrap > section.highlights > section > div p {
+  text-align: justify;
+}
+main > div.section-wrap > section.highlights > section > figure {
+  float: right;
+  width: 50%;
+  overflow: hidden;
+}
+main > div.section-wrap > section.highlights > section > figure pre {
+  border-radius: 5px;
+  width: 100%;
+}
+@media (max-width: 1300px) {
+  main > div.section-wrap > section.highlights > section:nth-child(2n) > div {
+    float: right;
+    padding-left: 30px;
+    padding-right: 0;
+  }
+  main > div.section-wrap > section.highlights > section > div {
+    width: 40%;
+    padding-right: 30px;
+  }
+  main > div.section-wrap > section.highlights > section > figure {
+    width: 60%;
+  }
 }
 @media (max-width: 1023px) {
   main > div.section-wrap > section.highlights > section {
     margin-top: 80px;
   }
   main > div.section-wrap > section.highlights > section > div, main > div.section-wrap > section.highlights > section > figure {
-    width: 100% !important;
-    padding: 0 !important;
-    float: none !important;
+    width: 100%;
+    padding: 0;
+    float: none;
   }
   main > div.section-wrap > section.highlights > section div {
     margin-top: 0 !important;
@@ -803,21 +839,6 @@ main > div.section-wrap > section.highlights > section:first-child {
   main > div.section-wrap > section.highlights > section > figure pre::-webkit-scrollbar {
     display: none;
   }
-}
-main > div.section-wrap > section.highlights > section > div {
-  float: left;
-  margin-top: 50px;
-  width: 50%;
-  padding-right: 50px;
-}
-main > div.section-wrap > section.highlights > section > figure {
-  float: right;
-  width: 50%;
-  overflow: hidden;
-}
-main > div.section-wrap > section.highlights > section > figure pre {
-  border-radius: 5px;
-  width: 100%;
 }
 
 body::after {

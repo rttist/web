@@ -82,7 +82,7 @@
 			right: 541px;
 			opacity: 0.6;
 			transition: 0.2s;
-			
+
 			&:hover {
 				opacity: 1;
 			}
@@ -211,15 +211,22 @@
 							content: 'RTTIST';
 							text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 							color: transparent;
+							transition: 0.5s;
 						}
 
 						span {
 							position: absolute;
-							background: linear-gradient(90deg, #6b639f, #769bc0);
-							-webkit-background-clip: text;
+							background: linear-gradient(90deg, #6b639f, #769bc0) no-repeat -450px 0;
 							background-clip: text;
+							color: #6b639f;
+							transition: 1s;
+							-webkit-background-clip: text;
 							-webkit-text-fill-color: transparent;
 						}
+					}
+
+					&.visible-animated span.name span {
+						background-position: 0 0;
 					}
 
 					span.logomark {
