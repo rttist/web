@@ -87,7 +87,7 @@
 					</header>
 
 					<div class="buttons">
-						<a class="btn" href="//docs.rttist.org/#/en/getting-started">Get Started</a>
+						<a class="btn" href="//docs.rttist.org/#/en/getting-started/installation">Get Started</a>
 						<a class="btn" href="//docs.rttist.org/">Documentation</a>
 						<a class="btn run-playground" href="#" onclick="return playground.open()">Playground</a>
 					</div>
@@ -105,7 +105,7 @@
 								Reflection provides objects describing <a href="//docs.rttist.org/#/en/type">types</a> and <a href="//docs.rttist.org/#/en/module">modules</a>. 
 								You can use reflection to look up, dynamically import and create an instance of a type, 
 								list its properties, accessors, methods, constructors, decorators and other information.
-								You can also get the type of an existing object and/or statically check or compare types. 
+								You can also get the type of existing object and/or statically check or compare types.
 								If you are using decorators in your code, reflection enables you to access them and read their constant arguments.
 							</p>
 							
@@ -235,13 +235,13 @@ export function logPerson&lt;TPerson extends Person>(person: TPerson) {
 							</p>
 							
 							<p>
-								Lets have an <code>Entity</code> interface from some ORM. 
+								Let's have an <code>Entity</code> interface from some ORM.
 								We want to find all the not-abstract classes implementing that interface and do something with them.
 								That is pretty simple task...
 							</p>
 						</div>
 						<figure>
-						<pre><code class="language-typescript">import { Metadata } from "Rttist";
+						<pre><code class="language-typescript">import { Metadata } from "rttist";
 							
 // First, get type of the interface `Entity`
 const entityType = getType&lt;Entity>();
@@ -395,7 +395,7 @@ export class User extends BaseEntity {
     age: number
 }</code></pre>
 							<pre><code class="language-typescript">import { BaseEntity } from "typeorm";
-import { Metadata } from "Rttist";
+import { Metadata } from "rttist";
 
 const baseEntity = getType&lt;BaseEntity>;
 
